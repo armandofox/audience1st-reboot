@@ -46,10 +46,15 @@
     just close this browser window and nothing will be restarted.
   </p>
   <p class="warning">
-    After a successful restart, it will take about 3 minutes before
-    Audience1st is responsive again, so don't panic!
   </p>
-  <form action="/reboot" method="post">
+  <form id="reboot" action="/reboot" method="post">
     <button type="submit" class="btn btn-danger">Restart <%= @server %> Server</button>
   </form>
+  <script type="text/javascript">
+    $(function() {
+      $('#reboot').submit(function() {
+        return(confirm("After a successful restart, it will take about 3 minutes before Audience1st is responsive again, so don't panic.  OK to attempt restart?"));
+        });
+    });
+  </script>
 </div>
