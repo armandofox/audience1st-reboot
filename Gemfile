@@ -6,6 +6,7 @@ gem 'fog'
 gem 'figaro'
 gem 'haml'
 gem 'rack-ssl'
+gem 'rollbar'
   
 group :development, :test do
   gem 'byebug'
