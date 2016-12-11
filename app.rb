@@ -1,5 +1,4 @@
 require 'rubygems'
-require 'byebug'
 require 'rack/ssl'
 require 'bundler'
 Bundler.require
@@ -34,6 +33,7 @@ class Audience1stReboot < Sinatra::Base
       end
     end
   else
+    require 'byebug'
     set :user, 'Tester'
   end
 
