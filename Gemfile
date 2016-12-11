@@ -5,8 +5,10 @@ gem 'sinatra'
 gem 'fog'
 gem 'figaro'
 gem 'haml'
-
+gem 'rack-ssl'
+  
 group :development, :test do
   gem 'byebug'
+  gem 'rerun'
 end
 

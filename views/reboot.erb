@@ -1,10 +1,72 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/bootstrap-theme.min.css">
     <title>Reboot Audience1st</title>
   </head>
   <body>
     <h1>Greetings, <span class="username"><%= @user %></span></h1>
+    
+    <div class="container-fluid">
+      <p>
+        If you're here, it's because you are having a problem with
+      Audience1st that cannot otherwise be resolved, such as:
+      </p>
+      <ul>
+        <li>"Whoops" error no matter which screen you try to access or
+          which customer you try to view</li>
+        <li>Screens are unresponsive or giving error messages that don't
+          make sense</li>
+        <li>You're unable to get to one or more Audience1st screens at
+          all (error message or hang forever when you try)</li>
+      </ul>
+      <p>
+      If you haven't already tried the following, do so before trying
+      this:
+      </p>
+      <ul>
+        <li> Make sure the problem is specific to Audience1st, i.e. you
+          can still get to other Web sites without difficulty</li>
+        <li> Make sure the problem is pervasive throughout Audience1st,
+          as opposed to being limited to a specific customer or a
+          specific action</li>
+        <li>Log out and then log back in to Audience1st</li>
+        <li>Try removing/clear the "browser cookies" related to
+          Audience1st.  You can either remove all cookies, or if you
+          remove specific ones, remove all cookies that have
+          "audience1st" somewhere in the name.
+          Instructions
+          for 
+          <a href="https://support.google.com/chrome/answer/95647?co=GENIE.Platform%3DDesktop&hl=en">Chrome</a>
+          - <a href="https://support.apple.com/kb/ph21411?locale=en_US">Safari</a>
+          - <a href="https://support.microsoft.com/en-us/help/17442/windows-internet-explorer-delete-manage-cookies">Internet
+            Explorer</a> -
+          <a href="https://support.mozilla.org/en-US/kb/delete-cookies-remove-info-websites-stored">Firefox</a>.</li>
+      </ul>
+    </div>
+
+    <h1>So you need to reboot</h1>
+    <div class="container-fluid">
+      <p>
+        If, after reading the above, you want to restart Audience1st,
+        click the Big Red Button below.  If you don't want to do that,
+        just close this browser window and nothing will be restarted.
+      </p>
+      <p class="warning">
+        After a successful restart, it will take about 3 minutes before
+        Audience1st is responsive again, so don't panic!
+      </p>
+      <form action="/reboot" method="post">
+        <button type="submit" class="btn btn-danger">Restart Audience1st</button>
+      </form>
+          
+      </ul>
+      
+    </div>
     
   </body>
 </html>
