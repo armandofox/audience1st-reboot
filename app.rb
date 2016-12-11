@@ -25,10 +25,10 @@ class Audience1stReboot < Sinatra::Base
     use Rack::SSL
     use Rack::Auth::Basic, "Restricted Area" do |username, password|
       if Figaro.env.send("#{username}_password!") == password
-        logger.warn "Successful login by #{username}"
+        puts "Successful login by #{username}"
         set :user, username.capitalize
       else
-        logger.warn "    Failed login by #{username}"
+        puts "    Failed login by #{username}"
         nil
       end
     end
