@@ -25,13 +25,21 @@ class Audience1stReboot < Sinatra::Base
   if ENV['RACK_ENV'] == 'production'
     use Rack::SSL
     use Rack::Auth::Basic, "Restricted Area" do |username, password|
-      set :user,username if Figaro.env.send("#{username}_password!") == password
+      if Figaro.env.send("#{username}_password!") == password
+        logger.warn "Successful login by #{username}"
+        set :user, username.capitalize
+      else
+        logger.warn "    Failed login by #{username}"
+        nil
+      end
     end
+  else
+    set :user, 'Tester'
   end
 
   get '/' do
-    @user = settings.user.capitalize
-    logger.info "Access by #{@user} at #{Time.now.asctime}"
+    @user = settings.user
+    @server = Figaro.env.server_name!.capitalize
     erb :reboot
   end
 
@@ -45,15 +53,10 @@ class Audience1stReboot < Sinatra::Base
       @server = compute.servers.detect { |s| s.name == Figaro.env.server_name! }
       raise StandardError.new("Couldn't find server in server list") unless @server
       @server.reboot('SOFT')
-      @success = true
-    rescue StandardError,
-      Fog::Rackspace::Errors::BadRequest,
-      Fog::Rackspace::Errors::Conflict,
-      Fog::Rackspace::Errors::InternalServerError,
-      Fog::Rackspace::Errors::MethodNotAllowed,
-      Fog::Rackspace::Errors::ServiceError,
-      Fog::Rackspace::Errors::ServiceUnavailable => @e
-    ensure
+      erb :result
+    rescue StandardError, Fog::Rackspace::Errors::BadRequest, Fog::Rackspace::Errors::Conflict,
+      Fog::Rackspace::Errors::InternalServerError, Fog::Rackspace::Errors::MethodNotAllowed,
+      Fog::Rackspace::Errors::ServiceError, Fog::Rackspace::Errors::ServiceUnavailable => @e
       erb :result
     end
   end

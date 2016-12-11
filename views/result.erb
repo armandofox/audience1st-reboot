@@ -1,34 +1,21 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/bootstrap-theme.min.css">
-    <title>Reboot Audience1st</title>
-  </head>
-  <body>
-    <% if @e.nil? %>
-    <h1>Success</h1>
-    <p class="lead">
-      Server <%= @server.name %> restarting.
-      <br/>
-      Wait about 3 minutes, then try Audience1st again.
-    </p> 
-    <% else %>
-    <h1>D'oh, it didn't work</h1>
-    <p class="lead danger text-danger">
-      Server could not be restarted:
-      <br>
-      <%= @e.message %>
-    </p>
-    <p class="danger text-danger">
-      The Big Red Button wasn't able to communicate with the 
-      server to restart it.  Wait a few minutes and try again, but if it
-      doesn't work after three attempts, contact Armando.
-    </p>
-    <% end %>
-
-  </body>
-</html>
+<% if @e.nil? %>
+<h1>Success</h1>
+<p class="lead">
+  Server "<%= @server.name %>" restarting.
+  <br/>
+  Wait about 3 minutes, then try Audience1st again.
+</p> 
+<% else %>
+<h1>D'oh, it didn't work</h1>
+<p class="lead danger text-danger">
+  Server could not be restarted:
+  <br>
+  <%= @e.message %>
+</p>
+<p class="danger text-danger">
+  The Big Red Button wasn't able to communicate with the 
+  server to restart it.  Wait a few minutes and try again, but if it
+  doesn't work after three attempts, contact Armando.
+</p>
+<a class="btn btn-warn" href="/">Try Again</a>
+<% end %>
