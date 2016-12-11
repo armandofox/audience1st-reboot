@@ -17,9 +17,9 @@ end
 class Audience1stReboot < Sinatra::Base
   configure do
     Figaro.load
+    enable :logging
   end
 
-  enable :logging
 
   if ENV['RACK_ENV'] == 'production'
     use Rack::SSL
