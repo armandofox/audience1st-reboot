@@ -18,7 +18,7 @@ class Audience1stReboot < Sinatra::Base
   configure do
     Figaro.load
     Rollbar.configure do |config|
-      config.access_token = ENV['ROLLBAR_ACCESS_TOKEN']
+      config.access_token = Figaro.env.ROLLBAR_ACCESS_TOKEN!
     end
   end
 
@@ -69,6 +69,8 @@ class Audience1stReboot < Sinatra::Base
       Fog::Rackspace::Errors::ServiceError, Fog::Rackspace::Errors::ServiceUnavailable => @e
       log @e
       erb :result
+    rescue Exception => e       # other unexpected error
+      Rollbar.error(e)
     end
   end
 end
