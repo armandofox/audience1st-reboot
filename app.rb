@@ -22,22 +22,14 @@ class Audience1stReboot < Sinatra::Base
     end
   end
 
-  def log(msg)
-    if ENV['RACK_ENV'] == 'production'
-      Rollbar.info(msg)
-    else
-      puts msg
-    end
-  end
-
   if ENV['RACK_ENV'] == 'production'
     use Rack::SSL
     use Rack::Auth::Basic, "Restricted Area" do |username, password|
       if Figaro.env.send("#{username}_password!") == password
-        log "Successful login by #{username}"
+        Rollbar.info "Successful login by #{username}"
         set :user, username.capitalize
       else
-        log "    Failed login by #{username}"
+        Rollbar.info "    Failed login by #{username}"
         nil
       end
     end
@@ -62,12 +54,12 @@ class Audience1stReboot < Sinatra::Base
       @server = compute.servers.detect { |s| s.name == Figaro.env.server_name! }
       raise StandardError.new("Couldn't find server in server list") unless @server
       @server.reboot('SOFT')
-      log "Successful reboot"
+      Rollbar.info "Successful reboot"
       erb :result
     rescue StandardError, Fog::Rackspace::Errors::BadRequest, Fog::Rackspace::Errors::Conflict,
       Fog::Rackspace::Errors::InternalServerError, Fog::Rackspace::Errors::MethodNotAllowed,
       Fog::Rackspace::Errors::ServiceError, Fog::Rackspace::Errors::ServiceUnavailable => @e
-      log @e
+      Rollbar.error @e
       erb :result
     rescue Exception => e       # other unexpected error
       Rollbar.error(e)
