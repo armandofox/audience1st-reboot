@@ -20,6 +20,9 @@ class Audience1stReboot < Sinatra::Base
     Rollbar.configure do |config|
       config.access_token = Figaro.env.ROLLBAR_ACCESS_TOKEN!
     end
+    HEROKU_API_BASE = 'https://api.heroku.com'
+    APP = Figaro.env.HEROKU_APP_NAME!
+    AUTH = Figaro.env.HEROKU_API_TOKEN!
   end
 
   if ENV['RACK_ENV'] == 'production'
@@ -34,34 +37,36 @@ class Audience1stReboot < Sinatra::Base
       end
     end
   else
+    enable :logging
     require 'byebug'
     set :user, 'Tester'
   end
 
   get '/' do
     @user = settings.user
-    @server = Figaro.env.server_name!.capitalize
     erb :reboot
   end
 
   post '/reboot' do
     @e = nil                    # will contain exception object if problem happens
     begin
-      compute = Fog::Compute.new(:provider => 'Rackspace',
-        :rackspace_username => Figaro.env.RACKSPACE_USERNAME! ,
-        :rackspace_api_key => Figaro.env.RACKSPACE_API_KEY! ,
-        :rackspace_region => Figaro.env.RACKSPACE_REGION!)
-      @server = compute.servers.detect { |s| s.name == Figaro.env.server_name! }
-      raise StandardError.new("Couldn't find server in server list") unless @server
-      @server.reboot('SOFT')
-      Rollbar.info "Successful reboot"
-      erb :result
-    rescue StandardError, Exception,
-      Fog::Rackspace::Errors::BadRequest, Fog::Rackspace::Errors::Conflict,
-      Fog::Rackspace::Errors::InternalServerError, Fog::Rackspace::Errors::MethodNotAllowed,
-      Fog::Rackspace::Errors::ServiceError, Fog::Rackspace::Errors::ServiceUnavailable => @e
+      headers = {
+        "Accept" => "application/vnd.heroku+json; version=3",
+        "Content-Type" => "application/json",
+        "Authorization" => "Bearer #{AUTH}"
+      }
+      uri = "#{HEROKU_API_BASE}/apps/#{APP}/dynos"
+      res = HTTParty.delete(uri, :headers => headers).code.to_s
+      if res =~ /^2/
+        Rollbar.info "Successful reboot by #{settings.user}"
+      else
+        @e = StandardError.new("Heroku returned HTTP status #{res}")
+        Rollbar.info @e.message
+      end
+    rescue StandardError => @e
       Rollbar.error @e
-      erb :result
     end
+    erb :result
   end
+
 end

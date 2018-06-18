@@ -1,9 +1,9 @@
 <% if @e.nil? %>
 <h1>Success</h1>
 <p class="lead">
-  Server "<%= @server.name %>" restarting.
+  Audience1st restarting.
   <br/>
-  Wait about 3 minutes, then try Audience1st again.
+  Wait about 30 seconds, then try Audience1st again.
 </p> 
 <% else %>
 <h1>D'oh, it didn't work</h1>
@@ -15,7 +15,8 @@
 <p class="danger text-danger">
   The Big Red Button wasn't able to communicate with the 
   server to restart it.  Wait a few minutes and try again, but if it
-  doesn't work after three attempts, contact Armando.
+  doesn't work after three attempts, contact the 
+  <a href="mailto:help@audience1st.com">helpline</a>.
 </p>
-<a class="btn btn-warn" href="/">Try Again</a>
+<a class="btn btn-default btn-primary" href="/">Try Again</a>
 <% end %>

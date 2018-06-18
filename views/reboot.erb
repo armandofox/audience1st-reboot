@@ -2,45 +2,17 @@
 
 <div class="container-fluid">
   <p>
-    If you're here, it's because you are having a problem with
-    Audience1st that cannot otherwise be resolved, such as:
+    The big red button below may help you if:
   </p>
   <ul>
-    <li>"Whoops" error no matter which screen you try to access or
+    <li>You're getting error messages from Audience1st  no matter which screen you try to access or
       which customer you try to view</li>
-    <li>Screens are unresponsive or giving error messages that don't
-      make sense</li>
-    <li>You're unable to get to one or more Audience1st screens at
-      all (error message or hang forever when you try)</li>
-    <li>Persistent extreme slowness that doesn't seem to affect any
-    other websites except Audience1st</li>
+    <li>Audience1st is really slow (while other websites seem to be normal)</li>
   </ul>
   <p>
-    If you haven't already tried the following, do so before trying
-    this:
-  </p>
-  <ul>
-    <li> Make sure the problem is specific to Audience1st, i.e. you
-      can still get to other Web sites without difficulty</li>
-    <li> Make sure the problem is pervasive throughout Audience1st,
-      as opposed to being limited to a specific customer or a
-      specific action</li>
-    <li>Log out and then log back in to Audience1st</li>
-    <li>Try removing/clear the "browser cookies" related to
-      Audience1st.  You can either remove all cookies, or if you
-      remove specific ones, remove all cookies that have
-      "audience1st" somewhere in the name.
-      Instructions
-      for 
-      <a href="https://support.google.com/chrome/answer/95647?co=GENIE.Platform%3DDesktop&hl=en">Chrome</a>
-      - <a href="https://support.apple.com/kb/ph21411?locale=en_US">Safari</a>
-      - <a href="https://support.microsoft.com/en-us/help/17442/windows-internet-explorer-delete-manage-cookies">Internet
-        Explorer</a> -
-      <a href="https://support.mozilla.org/en-US/kb/delete-cookies-remove-info-websites-stored">Firefox</a>.</li>
-  </ul>
-  <p> Restarting "gratuitously" doesn't cause any damage, but it will
-  immediately make the system unavailable for 3-5 minutes for both
-  Altarena and CCCT while the restart completes.</p>
+    If the problem can be reliably reproduced or is limited to a particular customer or screen, 
+      please <a href="mailto:help@audience1st.com">email the
+      helpline</a> as the big red button may not help.
 </div>
 
 <h1>So you need to reboot...</h1>
@@ -49,17 +21,18 @@
     If, after reading the above, you want to restart Audience1st,
     click the Big Red Button below.  </p>
   If you don't want to do that,
-    just close this browser window and nothing will be restarted.
+    just close this browser window and nothing will change.
   </p>
   <p class="warning">
   </p>
   <form id="reboot" action="/reboot" method="post">
-    <button type="submit" class="btn btn-danger">Restart <%= @server %> Server</button>
+    <button type="submit" class="btn btn-danger">Restart Audience1st</button>
   </form>
   <script type="text/javascript">
     $(function() {
       $('#reboot').submit(function() {
-        return(confirm("After a successful restart, it will take about 3 minutes before Audience1st is responsive again, so don't panic.  OK to attempt restart?"));
+        return(confirm("After a successful restart, it may take up to
+        30 seconds before Audience1st is responsive again, so don't panic.  OK to attempt restart?"));
         });
     });
   </script>

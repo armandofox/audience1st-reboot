@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
-ruby '2.2.2'
+ruby '2.3.1'
 
 gem 'sinatra'
-gem 'fog'
 gem 'figaro'
 gem 'haml'
+gem 'httparty'
 gem 'rack-ssl'
 gem 'rollbar'
   
