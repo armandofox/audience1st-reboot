@@ -21,8 +21,8 @@ class Audience1stReboot < Sinatra::Base
       config.access_token = Figaro.env.ROLLBAR_ACCESS_TOKEN!
     end
     HEROKU_API_BASE = 'https://api.heroku.com'
-    APP = Figaro.env.HEROKU_APP_NAME!
-    AUTH = Figaro.env.HEROKU_API_TOKEN!
+    APP = Figaro.env.A1_APP_NAME!
+    AUTH = Figaro.env.A1_API_TOKEN!
   end
 
   if ENV['RACK_ENV'] == 'production'
